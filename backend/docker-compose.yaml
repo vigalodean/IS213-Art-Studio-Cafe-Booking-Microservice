@@ -1,0 +1,21 @@
+services:
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8000:8000"
+
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "8001:8000"
+
+  booking-service:
+    build: ./booking-service
+    ports:
+      - "8002:8000"
+
+  composite-service:
+    build: ./composite-service
+    ports:
+      - "8003:8000"
