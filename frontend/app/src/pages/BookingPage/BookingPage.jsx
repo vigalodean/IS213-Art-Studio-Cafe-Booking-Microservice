@@ -12,11 +12,15 @@ export default function BookingPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // clear previous response so success message only appears when this call returns
+    // (hook keeps last response indefinitely)
+    setStartTime(""); setEndTime(""); setNumPeople(1);
     const res = await submitBooking({ startTime, endTime, numPeople });
     if (res?.success) {
       alert("Booking successful!");
-      setStartTime(""); setEndTime(""); setNumPeople(1);
-    } else alert("Booking failed!");
+    } else {
+      alert("Booking failed!");
+    }
   };
 
   return (
@@ -38,7 +42,7 @@ export default function BookingPage() {
         </label>
         <button type="submit" disabled={loading}>{loading ? "Submitting..." : "Submit Booking"}</button>
         {error && <p style={{ color: "red" }}>Error submitting booking</p>}
-        {response && <p style={{ color: "green" }}>Booking successful!</p>}
+        {response?.success && <p style={{ color: "green" }}>Booking successful!</p>}
       </form>
 
       <button onClick={() => navigate("/")}>Back to Home</button>

@@ -9,6 +9,7 @@ export function useBookingApi() {
   const submitBooking = async (bookingData) => {
     setLoading(true);
     setError(null);
+    setResponse(null); // clear any previous result before making a new request
 
     try {
       const res = await createBooking(bookingData);
@@ -21,7 +22,7 @@ export function useBookingApi() {
       setLoading(false);
     }
   };
-  
+
   const fetchBookings = async () => {
     setLoading(true);
     setError(null);

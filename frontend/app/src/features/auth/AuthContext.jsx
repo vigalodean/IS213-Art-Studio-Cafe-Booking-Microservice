@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
         const res = await getProfile();
         console.log("Profile response:", res);
         if (res.success) setUser({ username: res.username });
+        else setUser(null); // clear stale user if not authenticated
       } catch {
         setUser(null);
       } finally {
