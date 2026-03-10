@@ -42,7 +42,7 @@ pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 # In-memory storage
 # --------------------------
 bookings = []
-users_db = {}
+users_db = {"test" : pwd_context.hash("test")}  # pre-hash for testing; in production, store hashed passwords only
 
 # --------------------------
 # Routes
@@ -89,8 +89,14 @@ async def login(request: Request, response: Response, user: AuthModel = Body(...
     return {"success": True, "message": "Logged in successfully"}
 
 @app.post("/logout")
-async def logout(response: Response):
-    response.delete_cookie("session")
+async def logout(request: Request, response: Response):
+    # clear the value from the server-side session store as well
+    request.session.pop("user", None)
+    response.delete_cookie(
+        key="session",
+        path="/",
+        samesite="none",
+    )
     return {"success": True, "message": "Logged out"}
 
 @app.get("/profile")

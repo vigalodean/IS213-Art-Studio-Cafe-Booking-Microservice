@@ -3,7 +3,7 @@ import { useAuth } from "../../features/auth/AuthContext";
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const { user, loading } = useAuth();
+  const { user, logout } = useAuth();
   console.log("homepage: user:", user);
 
   return (
