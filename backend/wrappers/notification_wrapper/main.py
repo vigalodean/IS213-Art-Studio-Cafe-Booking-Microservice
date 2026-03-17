@@ -1,5 +1,11 @@
+import os
+from dotenv import load_dotenv
 import resend 
 
+load_dotenv()
+resend.api_key = os.getenv("RESEND_API_KEY")
+
+# Untested code 
 async def send_email_notification_wrapper(to_email: str, username: str):
     params = {
         "from": "artcafe@nicholassang.com",  # must be verified in Resend dashboard

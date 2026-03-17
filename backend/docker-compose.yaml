@@ -50,3 +50,11 @@ services:
     container_name: calendar-service
     ports:
      - "8009:8000"
+
+  notification-service:
+    build:
+      context: .
+      dockerfile: ./services/notification_service/Dockerfile
+    container_name: notification-service
+    ports:
+     - "8009:8000"
