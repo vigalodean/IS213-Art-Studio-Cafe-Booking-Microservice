@@ -14,7 +14,7 @@ app.add_middleware(
 )
 
 COMPOSITE_URL = os.getenv("COMPOSITE_URL", "http://composite-service:8000")
-AUTH_URL = "http://auth-service:8000"    
+USER_URL = "http://user-service:8000"    # User Service called directly from API gateway, we make it have its own composite if needed
 
 from fastapi.responses import JSONResponse
 
@@ -23,8 +23,11 @@ async def register(request: Request):
     data = await request.json()
     try:
         async with httpx.AsyncClient() as client:
-            res = await client.post(f"{AUTH_URL}/register", json=data)
-        return JSONResponse(status_code=res.status_code, content=res.json())
+            res = await client.post(f"{USER_URL}/register", json=data)
+        headers = {}
+        if res.headers.get("set-cookie"):
+            headers["set-cookie"] = res.headers.get("set-cookie")
+        return JSONResponse(status_code=res.status_code, content=res.json(), headers=headers or None)
     except httpx.RequestError as exc:
         return JSONResponse(status_code=502, content={"success": False, "message": str(exc)})
 
@@ -33,8 +36,11 @@ async def login(request: Request):
     data = await request.json()
     try:
         async with httpx.AsyncClient() as client:
-            res = await client.post(f"{AUTH_URL}/login", json=data, cookies=request.cookies)
-        return JSONResponse(status_code=res.status_code, content=res.json())
+            res = await client.post(f"{USER_URL}/login", json=data, cookies=request.cookies)
+        headers = {}
+        if res.headers.get("set-cookie"):
+            headers["set-cookie"] = res.headers.get("set-cookie")
+        return JSONResponse(status_code=res.status_code, content=res.json(), headers=headers or None)
     except httpx.RequestError as exc:
         return JSONResponse(status_code=502, content={"success": False, "message": str(exc)})
 
@@ -42,7 +48,7 @@ async def login(request: Request):
 async def profile(request: Request):
     try:
         async with httpx.AsyncClient() as client:
-            res = await client.get(f"{AUTH_URL}/profile", cookies=request.cookies)
+            res = await client.get(f"{USER_URL}/profile", cookies=request.cookies)
         return JSONResponse(status_code=res.status_code, content=res.json())
     except httpx.RequestError as exc:
         return JSONResponse(status_code=502, content={"success": False, "message": str(exc)})
@@ -51,8 +57,11 @@ async def profile(request: Request):
 async def logout(request: Request):
     try:
         async with httpx.AsyncClient() as client:
-            res = await client.post(f"{AUTH_URL}/logout", cookies=request.cookies)
-        return JSONResponse(status_code=res.status_code, content=res.json())
+            res = await client.post(f"{USER_URL}/logout", cookies=request.cookies)
+        headers = {}
+        if res.headers.get("set-cookie"):
+            headers["set-cookie"] = res.headers.get("set-cookie")
+        return JSONResponse(status_code=res.status_code, content=res.json(), headers=headers or None)
     except httpx.RequestError as exc:
         return JSONResponse(status_code=502, content={"success": False, "message": str(exc)})
 
