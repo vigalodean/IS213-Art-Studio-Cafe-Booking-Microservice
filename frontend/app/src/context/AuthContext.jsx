@@ -1,6 +1,6 @@
 // src/features/auth/AuthContext.jsx
 import { createContext, useContext, useState, useEffect } from "react";
-import { getProfile, loginUser, registerUser, logoutUser } from "./api";
+import { getProfile, loginUser, registerUser, logoutUser } from "../api/auth";
 
 const AuthContext = createContext();
 

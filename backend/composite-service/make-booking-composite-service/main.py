@@ -15,11 +15,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-BOOKING_URL = "http://booking-service:8000"
 AUTH_URL = "http://auth-service:8000"              
-CALENDAR_URL = "http://calendar-service:8000"
-ARTSUPPLY_URL = "http://art-supply-service:8000"
-FOOD_URL = "http://food-order-service:8000"
+CALENDAR_WRAPPER_URL = "http://calendar-wrapper:8000"
 
 # In-memory session store
 sessions = {}
@@ -70,19 +67,8 @@ async def logout(request: Request, response: Response):
     response.delete_cookie("session", path="/", samesite="none")
     return {"success": True, "message": "Logged out"}
 
-@app.post("/bookings")
-async def create_booking(request: Request, booking: dict = Body(...)):
-    async with httpx.AsyncClient() as client:
-        cal_res = await client.post(f"{CALENDAR_URL}/check", json=booking)
-        if not cal_res.json().get("available"):
-            return {"success": False, "message": "Time slot unavailable"}
-        booking_res = await client.post(f"{BOOKING_URL}/bookings", json=booking)
-        await client.post(f"{ARTSUPPLY_URL}/reserve", json=booking)
-        await client.post(f"{FOOD_URL}/order", json=booking)
-    return {"success": True, "booking": booking}
-
-@app.get("/bookings")
+@app.get("/calendar-url")
 async def get_bookings():
     async with httpx.AsyncClient() as client:
-        res = await client.get(f"{BOOKING_URL}/bookings")
+        res = await client.get(f"{CALENDAR_WRAPPER_URL}/calendar-url")
     return res.json()

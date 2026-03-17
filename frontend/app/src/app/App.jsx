@@ -1,6 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router.jsx";
-import { useAuth } from "../features/auth/AuthContext";
+import { useAuth } from "../context/AuthContext.jsx";
 
 export default function App() {
   const { user, loading } = useAuth();

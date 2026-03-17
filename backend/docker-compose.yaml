@@ -17,48 +17,17 @@ services:
       - "8005:8000"
 
   composite-service:
-    build: ./composite-service
-    container_name: composite-service
+    build: ./composite-service/make-booking-composite-service
+    container_name: make-booking-composite-service
     environment:
-      - BOOKING_URL=http://booking-service:8000
       - AUTH_URL=http://auth-service:8000
-      - CALENDAR_URL=http://calendar-service:8000
-      - ARTSUPPLY_URL=http://art-supply-service:8000
-      - FOOD_URL=http://food-order-service:8000
       - AI_RECOMMENDATION_URL=http://ai-recommendation-wrapper:8000
       - PAYMENT_URL=http://payment-wrapper:8000
     depends_on:
       - auth-service
-      - booking-service
-      - calendar-service
-      - art-supply-service
-      - food-order-service
       - ai-recommendation-wrapper
       - payment-wrapper
 
-  booking-service:
-    build: ./services/booking-service
-    container_name: booking-service
-    ports:
-      - "8001:8000"
-
-  calendar-service:
-    build: ./services/calendar-service
-    container_name: calendar-service
-    ports:
-      - "8002:8000"
-
-  art-supply-service:
-    build: ./services/art-supply-service
-    container_name: art-supply-service
-    ports:
-      - "8003:8000"
-
-  food-order-service:
-    build: ./services/food-order-service
-    container_name: food-order-service
-    ports:
-      - "8004:8000"
   ai-recommendation-wrapper:
     build: ./wrappers/ai-recommendation-wrapper
     container_name: ai-recommendation-wrapper
@@ -73,3 +42,9 @@ services:
      - "8007:8000"
     env_file:
      - ./wrappers/payment-wrapper/.env
+
+  calendar-wrapper:
+    build: ./wrappers/calendar-wrapper
+    container_name: calendar-wrapper
+    ports:
+     - "8008:8000"
