@@ -43,8 +43,10 @@ services:
     env_file:
      - ./wrappers/payment-wrapper/.env
 
-  calendar-wrapper:
-    build: ./wrappers/calendar-wrapper
-    container_name: calendar-wrapper
+  calendar-service:
+    build:
+      context: .
+      dockerfile: ./services/calendar-service/Dockerfile
+    container_name: calendar-service
     ports:
-     - "8008:8000"
+     - "8009:8000"

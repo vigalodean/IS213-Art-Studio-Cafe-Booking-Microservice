@@ -1,0 +1,11 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY services/calendar-service/requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY services/calendar-service .
+COPY wrappers ./wrappers
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
