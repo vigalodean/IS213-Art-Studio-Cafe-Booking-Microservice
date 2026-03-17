@@ -20,6 +20,7 @@ AUTH_URL = "http://auth-service:8000"
 CALENDAR_URL = "http://calendar-service:8000"
 ARTSUPPLY_URL = "http://art-supply-service:8000"
 FOOD_URL = "http://food-order-service:8000"
+CALENDAR_WRAPPER_URL = "http://calendar-wrapper:8000"
 
 # In-memory session store
 sessions = {}
@@ -85,4 +86,10 @@ async def create_booking(request: Request, booking: dict = Body(...)):
 async def get_bookings():
     async with httpx.AsyncClient() as client:
         res = await client.get(f"{BOOKING_URL}/bookings")
+    return res.json()
+
+@app.get("/calendar-url")
+async def get_bookings():
+    async with httpx.AsyncClient() as client:
+        res = await client.get(f"{CALENDAR_WRAPPER_URL}/calendar-url")
     return res.json()
