@@ -55,26 +55,6 @@ async def logout(request: Request):
     except httpx.RequestError as exc:
         return JSONResponse(status_code=502, content={"success": False, "message": str(exc)})
 
-
-@app.post("/bookings")
-async def create_booking(request: Request):
-    data = await request.json()
-    try:
-        async with httpx.AsyncClient() as client:
-            res = await client.post(f"{COMPOSITE_URL}/bookings", json=data, cookies=request.cookies)
-        return JSONResponse(status_code=res.status_code, content=res.json())
-    except httpx.RequestError as exc:
-        return JSONResponse(status_code=502, content={"success": False, "message": str(exc)})
-
-@app.get("/bookings")
-async def get_bookings(request: Request):
-    try:
-        async with httpx.AsyncClient() as client:
-            res = await client.get(f"{COMPOSITE_URL}/bookings", cookies=request.cookies)
-        return JSONResponse(status_code=res.status_code, content=res.json())
-    except httpx.RequestError as exc:
-        return JSONResponse(status_code=502, content={"success": False, "message": str(exc)})
-    
 @app.get("/calendar-url")
 async def get_calendar_url(request: Request):
     try:

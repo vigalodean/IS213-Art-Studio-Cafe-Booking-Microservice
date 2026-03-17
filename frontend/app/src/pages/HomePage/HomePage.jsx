@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../features/auth/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import apiClient from "../../services/apiClient";
 
 export default function HomePage() {
@@ -68,14 +68,6 @@ export default function HomePage() {
       </>
         }
       {user && <button onClick={() => logout()} style={{ marginLeft: 10 }}>Logout</button>}
-      {user && 
-      <button
-        onClick={() => (navigate("/booking"))}
-        style={{ marginLeft: 10 }}
-      >
-        Booking
-      </button>
-      }
       {user && (
         <>
           <button onClick={openBookingLink} style={{ marginLeft: 10 }}>
