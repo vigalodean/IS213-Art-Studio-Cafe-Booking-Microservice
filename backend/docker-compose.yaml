@@ -17,8 +17,8 @@ services:
       - "8005:8000"
 
   composite-service:
-    build: ./composite-service
-    container_name: composite-service
+    build: ./composite-service/make-booking-composite-service
+    container_name: make-booking-composite-service
     environment:
       - AUTH_URL=http://auth-service:8000
       - AI_RECOMMENDATION_URL=http://ai-recommendation-wrapper:8000
