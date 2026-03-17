@@ -9,9 +9,9 @@ services:
     depends_on:
       - composite-service
 
-  auth-service:
-    build: ./services/auth-service
-    container_name: auth-service
+  user-service:
+    build: ./services/user-service
+    container_name: user-service
     # expose a port only for debugging; composite and gateway use the internal network
     ports:
       - "8005:8000"
@@ -24,7 +24,7 @@ services:
       - AI_RECOMMENDATION_URL=http://ai-recommendation-wrapper:8000
       - PAYMENT_URL=http://payment-wrapper:8000
     depends_on:
-      - auth-service
+      - user-service
       - ai-recommendation-wrapper
       - payment-wrapper
 
