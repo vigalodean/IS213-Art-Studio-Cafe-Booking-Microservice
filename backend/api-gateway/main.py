@@ -74,3 +74,12 @@ async def get_calendar_url(request: Request):
         return JSONResponse(status_code=res.status_code, content=res.json())
     except httpx.RequestError as exc:
         return JSONResponse(status_code=502, content={"success": False, "message": str(exc)})
+
+@app.get("/getAllActivities")
+async def get_all_activities(request: Request):
+    try:
+        async with httpx.AsyncClient() as client:
+            res = await client.get(f"{COMPOSITE_URL}/activities", cookies=request.cookies)
+        return JSONResponse(status_code=res.status_code, content=res.json())
+    except httpx.RequestError as exc:
+        return JSONResponse(status_code=502, content={"success": False, "message": str(exc)})

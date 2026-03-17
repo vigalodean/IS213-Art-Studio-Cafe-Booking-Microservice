@@ -67,7 +67,7 @@ def home():
     return {"message": "Activity Service is running"}
 
 # Browse all activities (catalogue)
-@app.get("/activities")
+@app.get("/activities/all")
 def get_activities():
     return {"activities": activities}
 

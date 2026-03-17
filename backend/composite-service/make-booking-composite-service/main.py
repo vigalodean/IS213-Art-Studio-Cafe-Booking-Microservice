@@ -16,9 +16,16 @@ app.add_middleware(
 )
 
 CALENDAR_URL = "http://calendar-service:8000"
+ACTIVITY_URL = "http://activity-service:8000"
 
 @app.get("/calendar-url")
 async def get_bookings():
     async with httpx.AsyncClient() as client:
         res = await client.get(f"{CALENDAR_URL}/calendar-url")
+    return res.json()
+
+@app.get("/activities")
+async def get_activities():
+    async with httpx.AsyncClient() as client:
+        res = await client.get(f"{ACTIVITY_URL}/activities/all")
     return res.json()

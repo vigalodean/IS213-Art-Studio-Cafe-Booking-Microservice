@@ -22,7 +22,7 @@ export default function ActivityDetail() {
       <h2>${activity.price}</h2>
 
       <button style={{ padding: "10px 20px" }}>
-        Book Now
+        Book Now (Activity)
       </button>
     </div>
   );

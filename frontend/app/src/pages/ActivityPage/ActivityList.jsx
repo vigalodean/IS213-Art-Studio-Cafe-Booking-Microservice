@@ -4,7 +4,7 @@ export default function ActivityList() {
   const [activities, setActivities] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/activities")
+    fetch("http://localhost:8000/getAllActivities")
       .then(res => res.json())
       .then(data => setActivities(data.activities));
   }, []);
