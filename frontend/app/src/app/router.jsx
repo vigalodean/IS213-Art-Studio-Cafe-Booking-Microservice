@@ -2,7 +2,11 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import HomePage from "../pages/HomePage/HomePage.jsx";
 import LoginPage from "../pages/LoginPage/LoginPage.jsx";
 import RegisterPage from "../pages/RegisterPage/RegisterPage.jsx";
+import ActivityList from "../pages/ActivityPage/ActivityList.jsx";
+import ActivityDetail from "../pages/ActivityPage/ActivityDetail.jsx";
 
+
+// Protected route wrapper
 const Protected = ({ user, children }) => {
   if (!user) return <Navigate to="/login" replace />;
   return children;
@@ -10,7 +14,28 @@ const Protected = ({ user, children }) => {
 
 export const router = (user) =>
   createBrowserRouter([
+    // home
     { path: "/", element: <HomePage /> },
+    // auth 
     { path: "/login", element: <LoginPage /> },
     { path: "/register", element: <RegisterPage /> },
+    // 🎨 Activity Catalogue (PROTECTED)
+    {
+      path: "/activities",
+      element: (
+        <Protected user={user}>
+          <ActivityList />
+        </Protected>
+      ),
+    },
+
+    // Activity Details (PROTECTED)
+    {
+      path: "/activity/:id",
+      element: (
+        <Protected user={user}>
+          <ActivityDetail />
+        </Protected>
+      ),
+    },
 ]);

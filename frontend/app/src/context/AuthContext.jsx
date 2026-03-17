@@ -8,22 +8,26 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // fetch session on mount
+  // // fetch session on mount
+  // useEffect(() => {
+  //   const fetchProfile = async () => {
+  //     try {
+  //       const res = await getProfile();
+  //       console.log("Profile response:", res);
+  //       if (res.success) setUser({ username: res.username });
+  //       else setUser(null); // clear stale user if not authenticated
+  //     } catch {
+  //       setUser(null);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   console.log("AuthProvider mounted, fetching profile...");
+  //   fetchProfile();
+  // }, []);
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const res = await getProfile();
-        console.log("Profile response:", res);
-        if (res.success) setUser({ username: res.username });
-        else setUser(null); // clear stale user if not authenticated
-      } catch {
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-    console.log("AuthProvider mounted, fetching profile...");
-    fetchProfile();
+    // temporarily disable profile fetch
+    setLoading(false);
   }, []);
 
   const login = async (username, password) => {
