@@ -15,10 +15,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-CALENDAR_WRAPPER_URL = "http://calendar-wrapper:8000"
+CALENDAR_URL = "http://calendar-service:8000"
 
 @app.get("/calendar-url")
 async def get_bookings():
     async with httpx.AsyncClient() as client:
-        res = await client.get(f"{CALENDAR_WRAPPER_URL}/calendar-url")
+        res = await client.get(f"{CALENDAR_URL}/calendar-url")
     return res.json()
