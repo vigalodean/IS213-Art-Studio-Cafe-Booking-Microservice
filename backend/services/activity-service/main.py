@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Allow frontend later (VERY IMPORTANT)
+# Allow frontend later to access this service
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -79,7 +79,7 @@ def get_activity(activity_id: int):
             return activity
     raise HTTPException(status_code=404, detail="Activity not found")
 
-# Filter by category (extra feature 💯)
+# Filter by category
 @app.get("/activities/category/{category}")
 def get_by_category(category: str):
     filtered = [a for a in activities if a["category"].lower() == category.lower()]
