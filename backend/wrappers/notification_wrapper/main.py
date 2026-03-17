@@ -6,7 +6,7 @@ load_dotenv()
 resend.api_key = os.getenv("RESEND_API_KEY")
 
 # Untested code 
-async def send_email_notification_wrapper(to_email: str, username: str):
+async def send_email_transaction_notification_wrapper(to_email: str, username: str):
     params = {
         "from": "artcafe@nicholassang.com",  # must be verified in Resend dashboard
         "to": [to_email],
