@@ -78,3 +78,11 @@ services:
     container_name: activity-service
     ports:
      - "8011:8000"
+
+  quiz-service:
+    build:
+      context: .
+      dockerfile: ./services/quiz-service/Dockerfile
+    container_name: quiz-service
+    ports:
+     - "8012:8000"
