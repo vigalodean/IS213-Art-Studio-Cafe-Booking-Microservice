@@ -59,7 +59,7 @@ activities = [
         "description": "Relax with soft watercolor techniques.",
         "price": 35,
         "duration": "1.5 hours",
-        "image": "http://localhost:8000/images/watercolor_workshop.jpg"
+        "image": "http://localhost:8000/images/watercolor.jpg"
     }
 ]
 
