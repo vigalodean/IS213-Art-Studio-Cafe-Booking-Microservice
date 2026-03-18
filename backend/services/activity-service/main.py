@@ -17,7 +17,7 @@ app.add_middleware(
 # Mock database (Activity catalogue)
 activities = [
     {
-        "id": 1,
+        "id": "art-jamming",
         "name": "Art Jamming",
         "category": "Painting",
         "description": "Express your creativity on canvas with guidance.",
@@ -26,7 +26,7 @@ activities = [
         "image": "http://localhost:8000/images/art_jamming.jpg"
     },
     {
-        "id": 2,
+        "id": "oil-painting",
         "name": "Oil Painting",
         "category": "Painting",
         "description": "Learn oil painting techniques with professionals.",
@@ -35,7 +35,7 @@ activities = [
         "image": "http://localhost:8000/images/oil_painting.jpg"
     },
     {
-        "id": 3,
+        "id": "acrylic-painting",
         "name": "Acrylic Painting",
         "category": "Painting",
         "description": "Fun and vibrant acrylic painting session.",
@@ -44,7 +44,7 @@ activities = [
         "image": "http://localhost:8000/images/acrylic_painting.jpg"
     },
     {
-        "id": 4,
+        "id": "clay-sculpting",
         "name": "Clay Sculpting",
         "category": "Sculpting",
         "description": "Create your own clay masterpiece.",
@@ -53,7 +53,7 @@ activities = [
         "image": "http://localhost:8000/images/clay_sculpting.jpg"
     },
     {
-        "id": 5,
+        "id": "watercolor-workshop",
         "name": "Watercolor Workshop",
         "category": "Painting",
         "description": "Relax with soft watercolor techniques.",
