@@ -75,7 +75,7 @@ def get_activities():
 
 # Get single activity (details page)
 @app.get("/activities/{activity_id}")
-def get_activity(activity_id: int):
+def get_activity(activity_id: str):
     for activity in activities:
         if activity["id"] == activity_id:
             return activity
