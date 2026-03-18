@@ -1,8 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
+app.mount("/images", StaticFiles(directory="images"), name="images")
 # Allow frontend later to access this service
 app.add_middleware(
     CORSMiddleware,
@@ -21,7 +23,7 @@ activities = [
         "description": "Express your creativity on canvas with guidance.",
         "price": 45,
         "duration": "2 hours",
-        "image": "https://via.placeholder.com/300"
+        "image": "http://localhost:8000/images/art_jamming.jpg"
     },
     {
         "id": 2,
@@ -30,7 +32,7 @@ activities = [
         "description": "Learn oil painting techniques with professionals.",
         "price": 60,
         "duration": "3 hours",
-        "image": "https://via.placeholder.com/300"
+        "image": "http://localhost:8000/images/oil_painting.jpg"
     },
     {
         "id": 3,
@@ -39,7 +41,7 @@ activities = [
         "description": "Fun and vibrant acrylic painting session.",
         "price": 40,
         "duration": "2 hours",
-        "image": "https://via.placeholder.com/300"
+        "image": "http://localhost:8000/images/acrylic_painting.jpg"
     },
     {
         "id": 4,
@@ -48,7 +50,7 @@ activities = [
         "description": "Create your own clay masterpiece.",
         "price": 50,
         "duration": "2.5 hours",
-        "image": "https://via.placeholder.com/300"
+        "image": "http://localhost:8000/images/clay_sculpting.jpg"
     },
     {
         "id": 5,
@@ -57,7 +59,7 @@ activities = [
         "description": "Relax with soft watercolor techniques.",
         "price": 35,
         "duration": "1.5 hours",
-        "image": "https://via.placeholder.com/300"
+        "image": "http://localhost:8000/images/watercolor_workshop.jpg"
     }
 ]
 
@@ -67,7 +69,7 @@ def home():
     return {"message": "Activity Service is running"}
 
 # Browse all activities (catalogue)
-@app.get("/activities")
+@app.get("/getAllActivities")
 def get_activities():
     return {"activities": activities}
 
