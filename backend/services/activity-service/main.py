@@ -1,8 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
+app.mount("/images", StaticFiles(directory="images"), name="images")
 # Allow frontend later to access this service
 app.add_middleware(
     CORSMiddleware,
@@ -15,49 +17,49 @@ app.add_middleware(
 # Mock database (Activity catalogue)
 activities = [
     {
-        "id": 1,
+        "id": "art-jamming",
         "name": "Art Jamming",
         "category": "Painting",
         "description": "Express your creativity on canvas with guidance.",
         "price": 45,
         "duration": "2 hours",
-        "image": "https://via.placeholder.com/300"
+        "image": "http://localhost:8000/images/art_jamming.jpg"
     },
     {
-        "id": 2,
+        "id": "oil-painting",
         "name": "Oil Painting",
         "category": "Painting",
         "description": "Learn oil painting techniques with professionals.",
         "price": 60,
         "duration": "3 hours",
-        "image": "https://via.placeholder.com/300"
+        "image": "http://localhost:8000/images/oil_painting.jpg"
     },
     {
-        "id": 3,
+        "id": "acrylic-painting",
         "name": "Acrylic Painting",
         "category": "Painting",
         "description": "Fun and vibrant acrylic painting session.",
         "price": 40,
         "duration": "2 hours",
-        "image": "https://via.placeholder.com/300"
+        "image": "http://localhost:8000/images/acrylic_painting.jpg"
     },
     {
-        "id": 4,
+        "id": "clay-sculpting",
         "name": "Clay Sculpting",
         "category": "Sculpting",
         "description": "Create your own clay masterpiece.",
         "price": 50,
         "duration": "2.5 hours",
-        "image": "https://via.placeholder.com/300"
+        "image": "http://localhost:8000/images/clay_sculpting.jpg"
     },
     {
-        "id": 5,
+        "id": "watercolor-workshop",
         "name": "Watercolor Workshop",
         "category": "Painting",
         "description": "Relax with soft watercolor techniques.",
         "price": 35,
         "duration": "1.5 hours",
-        "image": "https://via.placeholder.com/300"
+        "image": "http://localhost:8000/images/watercolor.jpg"
     }
 ]
 
@@ -67,13 +69,13 @@ def home():
     return {"message": "Activity Service is running"}
 
 # Browse all activities (catalogue)
-@app.get("/activities/all")
+@app.get("/getAllActivities")
 def get_activities():
     return {"activities": activities}
 
 # Get single activity (details page)
 @app.get("/activities/{activity_id}")
-def get_activity(activity_id: int):
+def get_activity(activity_id: str):
     for activity in activities:
         if activity["id"] == activity_id:
             return activity
