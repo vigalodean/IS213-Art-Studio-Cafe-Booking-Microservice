@@ -84,5 +84,14 @@ def get_activity(activity_id: str):
 # Filter by category
 @app.get("/activities/category/{category}")
 def get_by_category(category: str):
+<<<<<<< Updated upstream
     filtered = [a for a in activities if a["category"].lower() == category.lower()]
     return {"activities": filtered}
+=======
+    response = supabase.table("activities") \
+        .select("*") \
+        .ilike("category", category) \
+        .execute()
+
+    return {"activities": response.data}
+>>>>>>> Stashed changes

@@ -259,4 +259,7 @@ export default function ActivityDetail() {
     </>
   );
 }
+<<<<<<< Updated upstream
  
+=======
+>>>>>>> Stashed changes
