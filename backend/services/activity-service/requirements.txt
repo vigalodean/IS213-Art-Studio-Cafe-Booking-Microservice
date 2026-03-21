@@ -1,7 +1,3 @@
 fastapi
-<<<<<<< Updated upstream
-uvicorn
-=======
 uvicorn
 supabase
->>>>>>> Stashed changes

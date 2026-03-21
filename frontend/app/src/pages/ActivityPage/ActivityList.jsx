@@ -219,7 +219,3 @@ export default function ActivityList() {
     </>
   );
 }
-<<<<<<< Updated upstream
- 
-=======
->>>>>>> Stashed changes
