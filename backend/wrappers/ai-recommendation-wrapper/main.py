@@ -41,17 +41,14 @@ settings = Settings()
 # Pydantic models
 # ---------------------------------------------------------------------------
 class QuizAnswer(BaseModel):
-    question_id: int
-    question_text: Optional[str] = None
-    selected_option_id: int
-    option_text: Optional[str] = None
-
+    question_id: str
+    selected_option_id: str
 
 class QuizSubmittedEvent(BaseModel):
-    user_id: str
     submission_id: str
+    user_id: str
     answers: list[QuizAnswer] = Field(..., min_length=1)
-
+    submitted_at: Optional[str] = None
 
 class Recommendation(BaseModel):
     activity: str
