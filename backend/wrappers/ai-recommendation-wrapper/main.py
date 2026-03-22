@@ -5,6 +5,7 @@ from aio_pika.abc import AbstractIncomingMessage
 from contextlib import asynccontextmanager
 from groq import AsyncGroq
 from google import genai
+from google.genai import types
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -154,7 +155,11 @@ async def get_ai_recommendation(answers: list[QuizAnswer]) -> Recommendation:
     try:
         response = await gemini_client.aio.models.generate_content(
             model=settings.gemini_model,
-            contents=f"{QUIZ_SYSTEM_PROMPT}\n\n{user_prompt}",
+            contents=user_prompt,
+            config=types.GenerateContextConfig(
+                system_instruction=QUIZ_SYSTEM_PROMPT,
+                temperature=0.3
+            )
         )
         return parse_recommendation(response.text.strip())
     except Exception:
